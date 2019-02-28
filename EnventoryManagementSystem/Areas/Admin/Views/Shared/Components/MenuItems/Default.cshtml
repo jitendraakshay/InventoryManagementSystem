@@ -1,0 +1,75 @@
+﻿
+@model IEnumerable<DomainEntities.UserMenu>
+@{var hasChildMenu = false;}
+
+@if (Model.Any())
+{
+    foreach (var item in Model.Where(x => x.ParentName == null))
+    {
+        hasChildMenu = false;
+        <li class="pcoded-hasmenu">
+            @if (Model.Where(x => x.ParentName == item.MenuName).Count() > 0)
+            {
+                hasChildMenu = true;
+            }
+            @if (item.MenuURI.Equals("#"))
+            {
+            <a href="javascript:void(0)" class="waves-effect waves-dark">
+                <span class="pcoded-micon">
+                    <i class="@item.IconClass"></i>
+                </span>               
+                <span class="pcoded-mtext">@item.MenuName</span>
+            </a>
+            }
+            else
+            {
+
+            <a href="javascript:void(0)" class="waves-effect waves-dark">
+                <span class="pcoded-micon">
+                    <i class="@item.IconClass"></i>
+                </span>                
+                <span class="pcoded-mtext">@item.MenuName</span>
+            </a>
+
+            }
+            @if (hasChildMenu == true)
+            {
+                <ul class="pcoded-submenu">
+                    @foreach (var subItem in Model.Where(x => x.ParentName == item.MenuName && x.ParentName != null))
+                    {
+                        <li class=" ">
+                            @if (subItem.MenuURI.Equals("#"))
+                            {
+                                <a href="#" class="waves-effect waves-dark">
+                                    <span class="pcoded-mtext">@subItem.MenuName</span>
+                                </a>
+
+                            }
+                            else
+                            {
+                                <a href="@Url.Action("Index", subItem.MenuURI, new { Area = "Admin" })" class="waves-effect waves-dark">
+                                    <span class="pcoded-mtext">@subItem.MenuName</span>
+                                </a>
+
+                            }
+
+                        </li>
+                    }
+
+                </ul>
+            }
+        </li>
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+

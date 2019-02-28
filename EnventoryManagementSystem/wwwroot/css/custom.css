@@ -1,0 +1,99 @@
+﻿/* Made with love by Mutiullah Samim*/
+
+@import url('https://fonts.googleapis.com/css?family=Numans');
+
+html, body {    
+    background-image: url('../images/imsbg.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100%;
+    font-family: 'Numans', sans-serif;
+}
+.panel-default > .panel-heading {
+    background-color: #AAA !important;
+}
+ul li {
+    list-style: none;
+}
+.text-red{
+    color:#ff0000;
+    
+}
+.btn i {
+    margin-right: 0px !important;
+    
+}
+.btn-light {
+    background-color: #fff !important;
+    padding: 6px !important;
+    border: 1px solid #ddd !important;
+}
+.bg-red-btn {
+    background-color: #ff869a !important;
+    border: none !important;
+}
+.margin-left-20{
+    margin-left:20px;
+}
+
+.loginExpireMessage{
+    font-weight:normal;
+    font-size:14px;
+    color:red;
+}
+.h1, .h2, .h3, h2, h3 {
+    margin-top: 5px !important;
+    margin-bottom: 5px !important;
+}
+.margin-top-10 {
+    margin-top: 10px !important;
+}
+.margin-top-20
+{
+    margin-top:20px !important;
+}
+.margin-top-25 {
+    margin-top: 25px !important;
+}
+.check {
+    vertical-align: text-top;
+    width: 13px;
+    height: 13px;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    overflow: hidden;
+    top: 2px;
+}
+.mandatory
+{
+    color:#ff0000;
+}
+.margin-top-30 {
+    margin-top: 30px !important;
+}
+.margin-right-10
+{
+    margin-right:10px !important;
+}
+.btn.btn-lg.btn-primary.btn-block.login-now {
+    margin: 40px 0 10px;
+    background: linear-gradient(to left, #4B79A1, #283E51);
+    border: none !important;
+}
+
+.btn.btn-lg.btn-primary.btn-block.login-now:hover
+{
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+.container {
+    height: 100%;
+    align-content: center;
+}
+.login-panel {
+    margin-top: 35%;
+    box-shadow: 0 0 13px rgba(0, 0, 0, 0.13);
+}
+
+
+

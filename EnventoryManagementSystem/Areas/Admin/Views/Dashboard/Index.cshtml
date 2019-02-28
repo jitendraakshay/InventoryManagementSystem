@@ -1,0 +1,17 @@
+﻿@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+
+}
+@{
+    ViewData["Title"] = "Dashboard";
+
+}
+@if (User.Identity.IsAuthenticated)
+{
+    <h2>Dashboard</h2>
+}
+else
+{
+    <h2>please login</h2>
+}
+

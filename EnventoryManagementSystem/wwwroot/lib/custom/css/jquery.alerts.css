@@ -1,0 +1,109 @@
+#popup_container {
+	font-family: Arial, sans-serif;
+	min-width: 300px; /* Dialog will be no smaller than this */
+	max-width: 600px; /* Dialog will wrap after this width */
+	background: #FFF;
+	border: solid 5px #999;
+	color: #000;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	font-size:13px;
+}
+
+#popup_title {
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 1.75em;
+    color: #666;
+    background: #CCC url(../images/title.gif) top repeat-x;
+    
+    /*border-bottom: solid 1px #999;*/
+    cursor: default;
+    padding: 0em;
+    margin: 0em;
+}
+
+#popup_content {
+    background: 16px 16px no-repeat url(../images/info.gif);
+    padding: 1em 1.75em;
+    margin: 0em;
+}
+
+
+    #popup_content.alert {
+        background-image: url(../images/info.gif);
+    }
+
+    #popup_content.confirm {
+        background-image: url(../images/important.gif);
+    }
+
+    #popup_content.prompt {
+        background-image: url(../images/help.gif);
+    }
+
+#popup_message {
+	padding-left: 48px;
+}
+
+#popup_panel {
+	text-align: center;
+	margin: 1em 0em 0em 1em;
+}
+#popup_cancel
+{
+    -moz-user-select: none !important;
+    background-image: none !important;
+    border: 1px solid transparent !important;
+    border-radius: 4px !important;
+    cursor: pointer !important;
+    display: inline-block !important;
+    font-size: 14px !important;
+    font-weight: 400 !important;
+    line-height: 1.42857 !important;
+    margin-bottom: 0 !important;
+    padding: 6px 12px !important;
+    text-align: center !important;
+    vertical-align: middle !important;
+    white-space: nowrap !important;
+    border-radius: 3px !important;
+    font-size: 12px !important;
+    line-height: 1.5 !important;
+    padding: 5px 10px !important;
+     background-color: #5cb85c !important;
+    border-color: #4cae4c !important;
+    color: #fff !important;
+    width:auto !important;
+    text-indent: 0px !important;
+}
+#popup_ok{
+	-moz-user-select: none !important;
+    background-image: none !important;
+    border: 1px solid transparent !important;
+    border-radius: 4px !important;
+    cursor: pointer !important;
+    display: inline-block !important;
+    font-size: 14px !important;
+    font-weight: 400 !important;
+    line-height: 1.42857 !important;
+    margin-bottom: 0 !important;
+    padding: 6px 12px !important;
+    text-align: center !important;
+    vertical-align: middle !important;
+    white-space: nowrap !important;
+    border-radius: 3px !important;
+    font-size: 12px !important;
+    line-height: 1.5 !important;
+    padding: 5px 10px !important;
+    background-color: #d9534f !important;
+    border-color: #d43f3a !important;
+    color: #fff !important;
+    width:auto !important;
+    text-indent: 0px !important;
+}
+
+#popup_prompt {
+	margin: .5em 0em;
+}

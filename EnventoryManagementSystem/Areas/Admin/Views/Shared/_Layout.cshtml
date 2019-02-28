@@ -1,0 +1,212 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Inventory Management System</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- Favicon icon -->
+    <link rel="icon" href="../files/assets/images/favicon.ico" type="image/x-icon">
+    <!-- Google font-->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Quicksand:500,700" rel="stylesheet">
+    <!-- Required Fremwork -->
+
+    <link href="~/lib/custom/css/bootstrap.min.css" rel="stylesheet" />
+    @*<link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />*@
+    @*<link href="~/lib/bootstrap/dist/css/bootstrap-select.min.css" rel="stylesheet" />*@
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
+    <link href="~/lib/custom/css/waves.min.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="~/lib/custom/css/feather.css" rel="stylesheet" />
+    <link href="~/lib/custom/css/font-awesome-n.min.css" rel="stylesheet" />
+    <link href="~/lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link href="~/lib/custom/css/customStyle.css" rel="stylesheet" />
+    <link href="~/lib/custom/css/jquery.alerts.css" rel="stylesheet" />
+    <link href="~/css/custom.css" rel="stylesheet" />
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/custom/js/knockout-3.4.2.js"></script>
+
+
+</head>
+<body>
+    <div>
+
+
+
+        <!-- [ Pre-loader ] start -->
+        <div class="loader-bg">
+            <div class="loader-bar"></div>
+        </div>
+        <!-- [ Pre-loader ] end -->
+        <div id="pcoded" class="pcoded">
+            <div class="pcoded-overlay-box"></div>
+            <div class="pcoded-container navbar-wrapper">
+                <!-- [ Header ] start -->
+                <nav class="navbar header-navbar pcoded-header">
+                    <div class="navbar-wrapper">
+                        <div class="navbar-logo">
+                            <a href="index.html">
+                                <h2>IMS</h2>
+                            </a>
+                            <a class="mobile-menu" id="mobile-collapse" href="#!">
+                                <i class="feather icon-menu"></i>
+                            </a>
+                            <a class="mobile-options waves-effect waves-light">
+                                <i class="feather icon-more-horizontal"></i>
+                            </a>
+                        </div>
+                        <div class="navbar-container container-fluid">
+
+
+                            <ul class="nav-left">
+                                <li class="header-search">
+                                    <div class="main-search morphsearch-search">
+                                        <span id="spnMenuHeader"></span>
+                                    </div>
+                                </li>
+
+                            </ul>
+
+
+
+                            <ul class="nav-right">
+
+                                <li class="user-profile header-notification">
+
+                                    <div class="dropdown-primary dropdown">
+                                        <div class="dropdown-toggle" data-toggle="dropdown">
+                                            <img src="" class="img-radius" alt="User-Profile-Image" id="profileImage">
+                                            <span id="spnUserName"></span>
+                                            <i class="feather icon-chevron-down"></i>
+                                        </div>
+                                        <ul class="show-notification profile-notification dropdown-menu" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
+
+                                            <li>
+                                                <a href="@Url.Action("Index", "UserProfile", new { Area = "Admin" })"><i class="fa fa-user fa-fw"></i> User Profile</a>
+
+                                            </li>
+
+                                            <li>
+                                                <a href="auth-sign-in-social.html">
+
+                                                    <a href="~/logout"><i class="feather icon-log-out"></i> Logout </a>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+
+
+
+                <div class="pcoded-main-container">
+                    <div class="pcoded-wrapper">
+
+                        <nav class="pcoded-navbar">
+                            <div class="nav-list">
+
+
+                                <div class="pcoded-inner-navbar main-menu">
+
+
+                                    <ul class="pcoded-item pcoded-left-item">
+                                        <li class="pcoded-hasmenu">
+                                            @await Component.InvokeAsync("MenuItems")
+                                        </li>
+
+                                    </ul>
+
+
+                                </div>
+                            </div>
+                        </nav>
+                        <div class="pcoded-content">
+                            @RenderBody()
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <script src="~/lib/custom/js/popper.min.js"></script>
+        <script src="~/lib/custom/js/Common.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="~/lib/jquery/dist/jqueryAlerts.js"></script>
+        <script src="~/lib/jquery/dist/jquery-migrate-1.2.1.js"></script>
+        @*<script src="~/lib/bootstrap/dist/js/bootstrap-select.min.js"></script>*@
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+        <script src="~/lib/custom/js/jquery-ui.min.js"></script>
+
+        <script src="~/lib/custom/js/jquery.slimscroll.js"></script>
+        <script src="~/lib/custom/js/pcoded.min.js"></script>
+        <script src="~/lib/custom/js/vertical-layout.min.js"></script>
+        <script src="~/lib/custom/js/script.min.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap-notify.min.js"></script>
+        <script src="~/lib/custom/js/validation.js"></script>
+
+    </div>
+    @*<script>
+        var path;
+        $.ajax({
+            url: "/Admin/Menu/GetUserName",
+            type: "GET",
+            async: false,
+            success: function (response) {
+
+                $("#spnUserName").text(response.data);
+              
+            },
+            error: function () {
+                ShowAlertMessage('error', "Some Error Occured");
+            }
+
+        });
+        
+        $.ajax({
+            url: "/Admin/Menu/GetAppPath",
+            type: "GET",
+            async: false,
+            success: function (response) {
+                path = response.data;
+                console.log("path>>",path);
+            },
+            error: function () {
+                ShowAlertMessage('error', "Some Error Occured");
+            }
+
+        });
+
+        $.ajax({
+            url: "/Admin/Menu/GetProfileImage",
+            type: "GET",
+            async: false,
+            success: function (response) {
+                var data = JSON.stringify(response.data);
+                console.log(data);
+                console.log(path + "\201902221521034.PNG");
+                $("#profileImage").attr('src', "E://InventoryManagementSystem//EnventoryManagementSystem//wwwroot//profileImage//902221521034.PNG");
+
+            },
+            error: function () {
+                ShowAlertMessage('error', "Some Error Occured");
+            }
+
+        });
+
+
+    </script>*@
+</body>
+</html>

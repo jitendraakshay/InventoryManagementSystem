@@ -1,0 +1,46 @@
+﻿@model DomainEntities.UserProfile
+
+@{
+    ViewBag.Title = "User Profile";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<div id="userProfileContainer">
+    @using (Html.BeginForm("", "", FormMethod.Post, new { enctype = "multipart/form-data", id = "formUserProfile", name = "formUserProfile", onsubmit = "return false;" }))
+    {
+        <div class="card">
+            <div class="card-header">
+                <h3>Update Profile Image</h3>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 profile-img">
+                        <div class="col-lg-6 col-md-6 col-xs-6 col-sm-6 profile-img">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ProfileImage)
+                                <div id="imagemsg" class="text-danger">
+                                </div>
+                                <input type="hidden" class="existingProfileImage" />
+                                <input type="file" class="image" name="image" id="image" onchange="setUploadButtonState(this.name,event);" />
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-xs-6 col-sm-6 profile-img">
+                            @if (string.IsNullOrEmpty(Model.ProfileImage))
+                            {
+                                <img id="imageimg" style="float: left; width: 50%; height: 100px;" alt="Upload an image" src="~/images/user.png" />
+                            }
+                            else
+                            {
+                                <link href="~/css/custom.css" rel="stylesheet" />
+                                <img id="imageimg" style="float: left; width: 50%; height: 100px;" alt="Upload an image" src="@("~/profileImage/" + Model.ProfileImage)" />
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <input id="btnSaveUserProfile" class="btn btn-primary pull-right" type="button" data-val="client" value="Save"/>
+            </div>
+        </div>
+    }
+    </div>
+<script src="~/js/UserProfile.js"></script>

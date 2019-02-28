@@ -1,0 +1,9 @@
+E:\InventoryManagementSystem\DomainInterface\bin\Debug\DomainInterface.dll
+E:\InventoryManagementSystem\DomainInterface\bin\Debug\DomainInterface.pdb
+E:\InventoryManagementSystem\DomainInterface\bin\Debug\DomainEntities.dll
+E:\InventoryManagementSystem\DomainInterface\bin\Debug\DomainEntities.pdb
+E:\InventoryManagementSystem\DomainInterface\obj\Debug\DomainInterface.csprojAssemblyReference.cache
+E:\InventoryManagementSystem\DomainInterface\obj\Debug\DomainInterface.csproj.CoreCompileInputs.cache
+E:\InventoryManagementSystem\DomainInterface\obj\Debug\DomainInterface.csproj.CopyComplete
+E:\InventoryManagementSystem\DomainInterface\obj\Debug\DomainInterface.dll
+E:\InventoryManagementSystem\DomainInterface\obj\Debug\DomainInterface.pdb

@@ -1,0 +1,182 @@
+@model DomainEntities.Role
+
+@{
+    ViewBag.Title = "Role";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+
+}
+<div id="roleContainer">
+
+    <div class="card">
+        <div class="card-header">
+            <h3>Role</h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-lg-4 col-md-4">
+                    <select id="ddlRole" class="form-control col-md-12" data-bind='options: RoleArray, optionsText: "RoleName", optionsValue: $data, value:SelectedRole, optionsCaption:"--- Select Role ---",event:{ change: ChangeRole}'></select>
+                </div>
+                <div class="col-lg-2 col-md-2">
+                    <input class="btn btn-primary pull-right" type="button" value="Add Role" data-bind="click:OpenRoleAddPopup" />
+                </div>
+                <div class="col-lg-2 col-md-2">
+                    <input class="btn btn-danger" type="button" value="Delete Role" data-bind="click:OpenDeleteRolePopup" />
+                </div>
+            </div>
+
+            <div class="row">
+
+                <table class="table table-hover margin-top-30" id="tblRole">
+                    <thead style="border-top:none !important">
+                        <tr>
+                            <th style="border-top:none !important;"><h5>Menu</h5></th>
+                            <th style="border-top:none !important;"><h5>Options<input type="checkbox" class="margin-left-20" data-bind="event:{ change:SelectAllOptions}, checked: AllOptions" /></h5></th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (ViewBag.AdminMenu != null)
+                        {
+                            foreach (var menu in ViewBag.AdminMenu)
+                            {
+
+                                <tr>
+                                    @if (@menu.ParentID == 0)
+                                    {
+                                        <td><h6>@menu.MenuName</h6></td>
+                                        <td class="menu-options" data-id="@menu.MenuID" data-val="@menu.Options">
+                                            @foreach (var option in menu.Options.Split(','))
+                                            {
+                                                <label class="check-box-type margin-right-10">
+                                                    <input class="user-group-item" data="@option" type="checkbox" /><span class="checkmark"></span><label>&nbsp;@option</label>
+                                                </label>
+
+                                            }
+                                        </td>
+                                    }
+                                    else
+                                    {
+
+                                        <td style="padding-left:30px !important">@menu.MenuName</td>
+                                        <td class="menu-options" data-id="@menu.MenuID" data-val="@menu.Options">
+                                            @foreach (var option in menu.Options.Split(','))
+                                            {
+                                                <label class="check-box-type margin-right-10">
+                                                    <input class="user-group-item" data="@option" type="checkbox" /><span class="checkmark"></span><label>&nbsp;@option</label>
+                                                </label>
+
+                                            }
+                                        </td>
+
+                                    }
+
+
+
+                                </tr>
+
+
+
+                            }
+                        }
+                    </tbody>
+                </table>
+
+
+            </div>
+        </div>
+        <div class="card-footer">
+            <input id="saveRole" class="btn btn-primary pull-right" type="button" data-val="client" value="Save Role" data-bind="click:SaveMenuRole" />
+        </div>
+    </div>
+
+</div>
+
+
+
+<div class="modal fade" id="customPopupDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header flex">
+
+                <h4 class="modal-title " id="customPopupTitle">Add Role</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            @using (Html.BeginForm("", "", FormMethod.Post, new { enctype = "multipart/form-data", id = "formRole", name = "formRole", onSubmit = "return false;" }))
+            {
+                <div class="modal-body message">
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(model => model.RoleID)
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Name, new { @style = "" })<span class="txtRed"> *</span>
+                        @Html.TextBoxFor(model => model.Name, new { @class = "form-control add-role" })
+                        <span id="spnError"></span>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary ok">Save Role</button>
+                </div>
+            }
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+
+<div class="modal fade" id="customDeletePopupDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header flex">
+
+                <h4 class="modal-title " id="customPopupTitle">Delete Role</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="col-md-12 col-xs-12 col-lg-12 col-sm-12">
+                    <table class="table table-responsive" style="display:table; width:100%;">
+                        <thead style="border-top:none !important; width:100%;">
+                            <tr>
+                                <th style="border-top:none !important;"><h5>Serial No</h5></th>
+                                <th style="border-top:none !important;"><h5>Role Name</h5></th>
+                                <th style="border-top:none !important;"><h5>Action</h5></th>
+
+                            </tr>
+                        </thead>
+                        <tbody data-bind="foreach: RoleArray" style="width:100%;">
+                            <tr>
+                                <td>
+                                    <span data-bind="text:($index() + 1)" />
+                                </td>
+                                <td>
+                                    <span data-bind="text:RoleName"></span>
+                                </td>
+                                <td>
+                                    <a data-bind="click: $root.DeleteRole" class="btn btn-primary bg-red-btn">
+                                        <i class="fa fa-remove"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+
+<script src="~/js/Role.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+
+
+

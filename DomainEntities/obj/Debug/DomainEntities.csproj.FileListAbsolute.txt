@@ -1,0 +1,8 @@
+E:\InventoryManagementSystem\DomainEntities\bin\Debug\DomainEntities.dll
+E:\InventoryManagementSystem\DomainEntities\bin\Debug\DomainEntities.pdb
+E:\InventoryManagementSystem\DomainEntities\bin\Debug\System.ComponentModel.Annotations.dll
+E:\InventoryManagementSystem\DomainEntities\obj\Debug\DomainEntities.csprojAssemblyReference.cache
+E:\InventoryManagementSystem\DomainEntities\obj\Debug\DomainEntities.csproj.CoreCompileInputs.cache
+E:\InventoryManagementSystem\DomainEntities\obj\Debug\DomainEntities.csproj.CopyComplete
+E:\InventoryManagementSystem\DomainEntities\obj\Debug\DomainEntities.dll
+E:\InventoryManagementSystem\DomainEntities\obj\Debug\DomainEntities.pdb

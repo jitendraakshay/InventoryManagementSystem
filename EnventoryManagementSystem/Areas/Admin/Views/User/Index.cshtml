@@ -1,0 +1,221 @@
+﻿@model DomainEntities.User
+
+@{
+    ViewBag.Title = "Role";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+
+}
+<div id="roleContainer">
+
+
+    <div class="card">
+        <div class="card-header">
+            <h3>User</h3>
+        </div>
+        <div class="card-body">
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#AllUsers"><h5>All Users</h5></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#CreateUser"><h5><span id="spnCreateUser">Create User</span></h5></a>
+                </li>
+                
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div class="tab-pane container active" id="AllUsers">
+                    <div class="card-body">
+                        <table class="table table-responsive table-hover" style="display:table; width:100%;">
+                            <thead style="border-top:none !important;border-bottom:2px solid #0094ff !important; width:100%;">
+                                <tr>
+                                    <th style="border-top:none !important;"><h6><b>Serial No</b></h6></th>
+                                    <th style="border-top:none !important;"><h6>First Name</h6></th>
+                                    <th style="border-top:none !important;"><h6>Last Name</h6></th>
+                                    <th style="border-top:none !important;"><h6>User Name</h6></th>
+                                    <th style="border-top:none !important;"><h6>Phone No</h6></th>
+                                    <th style="border-top:none !important;"><h6>Mobile No</h6></th>
+                                    <th style="border-top:none !important;"><h6>Is Active</h6></th>
+                                    <th style="border-top:none !important;" colspan="3" class="text-center"><h6>Action</h6></th>
+
+                                </tr>
+                            </thead>
+                            <tbody data-bind="foreach: UserArray" style="width:100%;">
+                                <tr>
+                                    <td>
+                                        <span data-bind="text:($index() + 1)" />
+                                    </td>
+                                    <td>
+                                        <span data-bind="text:FirstName" class="text-capitalize"></span>
+                                    </td>
+                                    <td>
+                                        <span data-bind="text:LastName" class="text-capitalize"></span>
+                                    </td>
+                                    <td>
+                                        <span data-bind="text:UserName"></span>
+                                    </td>
+                                    <td>
+                                        <span data-bind="text:PhoneNo"></span>
+                                    </td>
+                                    <td>
+                                        <span data-bind="text:MobileNo"></span>
+                                    </td>
+                                    <td>
+                                        <span data-bind="text:IsActive" class="text-capitalize"></span>
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-primary bg-red-btn" data-bind="click:$root.updateUser">
+                                            <i class="fa fa-pencil"></i>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <!-- ko if: IsActive -->
+                                        <a class="btn btn-primary bg-red-btn" data-bind="if:IsActive,click:$root.deleteUser">
+                                            <i class="fa fa-ban"></i>
+                                        </a>
+                                        <!-- /ko -->
+                                        <!-- ko ifnot: IsActive -->
+                                        <a class="btn btn-primary bg-red-btn" data-bind="if:!IsActive,click:$root.deleteUser">
+                                            <i class="fa fa-check"></i>
+                                        </a>
+                                        <!-- /ko -->
+                                    </td>
+                                    
+                                    <td>
+                                        <a class="btn btn-primary bg-red-btn" data-bind="click:$root.resetPassword">
+                                            <i class="fa fa-unlock-alt"></i>
+                                        </a>
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+                <div class="tab-pane container fade" id="CreateUser">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4 col-xs-4 col-lg-4 col-sm-4">
+                                <div class="form-group">
+                                    <label for="lblFirstName">First Name <span class="mandatory">*</span></label>
+                                    <input type="text" class="form-control" id="txtFirstName" placeholder="Enter First Name" data-bind="value:FirstName">
+
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-xs-4 col-lg-4 col-sm-4">
+                                <div class="form-group">
+                                    <label for="lblLastName">Last Name <span class="mandatory">*</span></label>
+                                    <input type="text" class="form-control" id="txtLastName" placeholder="Enter Last Name" data-bind="value:LastName">
+
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-xs-4 col-lg-4 col-sm-4">
+                                <div class="form-group">
+                                    <label for="lblUserName">User Name <span class="mandatory">*</span></label>
+                                    <input type="text" class="form-control" id="txtUserName" placeholder="Enter User Name" data-bind="value:UserName">
+
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-xs-4 col-lg-4 col-sm-4">
+                                <div class="form-group">
+                                    <label for="lblEmail">Email <span class="mandatory">*</span></label>
+                                    <input type="text" class="form-control" id="txtEmail" placeholder="Enter Email" data-bind="value:Email">
+
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-xs-4 col-lg-4 col-sm-4">
+                                <div class="form-group">
+                                    <label for="lblPhone">Phone</label>
+                                    <input type="text" class="form-control" id="txtPhone" placeholder="Enter Phone No." data-bind="value:PhoneNo">
+
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-xs-4 col-lg-4 col-sm-4">
+                                <div class="form-group">
+                                    <label for="lblMobile">Mobile <span class="mandatory">*</span></label>
+                                    <input type="text" class="form-control" id="txtPhone" placeholder="Enter Mobile No." data-bind="value:MobileNo">
+
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-xs-4 col-lg-4 col-sm-4">
+                                <div class="form-group">
+                                    <label for="lblMobile">Address</label>
+                                    <input type="text" class="form-control" id="txtAddress" placeholder="Enter Address" data-bind="value:Address">
+
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-xs-4 col-lg-4 col-sm-4">
+                                <div class="form-group">
+                                    <label for="lblPassword">Password <span class="mandatory">*</span></label>
+                                    <input type="text" class="form-control" id="txtPassword" placeholder="Enter Password" data-bind="value:Password">
+
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-xs-4 col-lg-4 col-sm-4">
+                                <div class="form-group">
+                                    <label for="lblCPassword">Confirm Password <span class="mandatory">*</span></label>
+                                    <input type="text" class="form-control" id="txtCPassword" placeholder="Enter Confirm Password" data-bind="value:CPassword">
+
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-xs-4 col-lg-4 col-sm-4">
+                                <div class="form-group">
+                                    <label for="lblRole">Role <span class="mandatory">*</span></label>
+                                    <select id="ddlRole" name="ddlRole" class="selectpicker form-control" data-live-search="true" data-bind="selectPicker:true, options:RoleArray, value:SelectedRole,optionsText:'RoleName',optionsValue:'RoleID'" multiple="multiple"></select>
+                                    @*<select id="ddlRole" class="selectpicker form-control" data-live-search="true" data-live-search-style="begins" data-bind='options: RoleArray, optionsText: "RoleName",selectPicker: true, optionsValue: RoleID, value:SelectedRole,event:{ change: $root.GetLocationByCityID }' multiple="multiple"></select>*@
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-xs-4 col-lg-4 col-sm-4">
+                                <div class="form-group">
+                                    <label for="lblIsActive">Is Active <span class="mandatory">*</span></label>                                    
+                                    <input type="checkbox" class="form-control check margin-top-10" data-bind="checked: IsActive" />
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 col-xs-4 col-lg-4 col-sm-4 margin-top-25">
+
+                                <button id="btnCancel" class="btn btn-primary pull-right margin-left-20" data-bind="click:clearForm">Cancel</button>
+
+                                <button id="btnSaveUser" class="btn btn-primary pull-right" data-bind="click:saveUser">Save User</button>
+
+                            </div>
+                        </div>
+                        
+                            
+                        
+                    </div>
+
+
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+            
+
+
+        </div>
+        
+    </div>
+
+</div>
+
+
+
+
+
+<script src="~/js/User.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+
+
+
