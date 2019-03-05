@@ -16,22 +16,8 @@ namespace InventoryManagementSystem.Helper
         {
 
             try
-            {
-              
+            {              
                  return _httpContextAccessor.HttpContext.User.Identity.Name;
-
-                //var identity = (ClaimsPrincipal)Thread.CurrentPrincipal;
-
-                //if (identity != null)
-                //{
-                //    // Get the claims values
-                //    var name = identity.Claims.Where(c => c.Type == ClaimTypes.Name)
-                //                       .Select(c => c.Value).SingleOrDefault();
-                //    var sid = identity.Claims.Where(c => c.Type == ClaimTypes.Sid)
-                //                       .Select(c => c.Value).SingleOrDefault();
-                //}
-                //return name;
-                //return nameClaim.ToString();
             }
             catch (Exception ex)
             {

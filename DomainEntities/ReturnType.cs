@@ -16,5 +16,6 @@ namespace DomainEntities
         public bool AllowLogin { get; set; }
         public string RoleID { get; set; }
         public bool isSuperUser { get; set; }
+        public string ImageType { get; set; }
     }
 }

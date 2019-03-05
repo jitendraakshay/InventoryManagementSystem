@@ -39,6 +39,7 @@ function Users(data) {
     var self = this;
     self.UserID = ko.observable(data.UserID);
     self.FirstName = ko.observable(data.FirstName);
+    self.MiddleName = ko.observable(data.MiddleName);
     self.LastName = ko.observable(data.LastName);
     self.UserName = ko.observable(data.UserName);
     self.Email = ko.observable(data.Email);
@@ -78,6 +79,7 @@ var UserViewModel = function () {
     //Start : User Observables declare here
     self.UserID = ko.observable();
     self.FirstName = ko.observable();
+    self.MiddleName = ko.observable();
     self.LastName = ko.observable();
     self.UserName = ko.observable();
     self.Email = ko.observable();
@@ -97,6 +99,7 @@ var UserViewModel = function () {
     self.RoleArray = ko.observableArray([]);
     self.Role = ko.observable();
     self.AddedRoleArray = ko.observableArray([]);
+    
     //End : User Observables end here
     var roleIDs;
     //NB : GETTING USER ROLES
@@ -117,7 +120,8 @@ var UserViewModel = function () {
                 
             },
             error: function () {
-                ShowAlertMessage('error', "Some Error Occured");
+                jAlert("Some Error Occured", "Error");
+               
             }
 
         });
@@ -140,7 +144,8 @@ var UserViewModel = function () {
                 self.UserArray(ko.toJS(mappedTasks));
             },
             error: function () {
-                ShowAlertMessage('error', "Some Error Occured");
+                jAlert("Some Error Occured", "Error");
+                
             }
 
         });
@@ -162,6 +167,7 @@ var UserViewModel = function () {
             data: {
                 UserID: ko.toJS(self.UserID),
                 FirstName: ko.toJS(self.FirstName),
+                MiddleName: ko.toJS(self.MiddleName),
                 LastName: ko.toJS(self.LastName),
                 UserName: ko.toJS(self.UserName),
                 Email: ko.toJS(self.Email),
@@ -263,6 +269,7 @@ var UserViewModel = function () {
     self.updateUser = function (data) {
         self.UserID(ko.toJS(data.UserID));
         self.FirstName(ko.toJS(data.FirstName));
+        self.MiddleName(ko.toJS(data.MiddleName));
         self.LastName(ko.toJS(data.LastName));
         self.UserName(ko.toJS(data.UserName));
         self.Email(ko.toJS(data.Email));
@@ -324,15 +331,8 @@ var UserViewModel = function () {
         if (Validate.empty(ko.toJS(self.UserName()))) {
             errMsg += 'Invalid User Name !!!<br>';
         }
-        
-        if (Validate.email(self.Email())) {
-            errMsg += "Invalid Email !!!<br>";
-        }       
-        if (Validate.phone(self.MobileNo())) {
-            errMsg += 'Invalid Mobile Number !!!<br>';
-        }
-        if (self.UserID() == undefined)
-        {
+
+        if (self.UserID() == undefined) {
             if (Validate.empty(self.Password())) {
                 errMsg += 'Invalid Password !!!<br>';
             }
@@ -340,6 +340,19 @@ var UserViewModel = function () {
                 errMsg += 'Does Not Match Password !!!<br>';
             }
         }
+
+        if (Validate.email(self.Email())) {
+            errMsg += "Invalid Email !!!<br>";
+        }
+        if (self.PhoneNo() != undefined) {
+            if (Validate.phone(self.PhoneNo()) || self.PhoneNo().length > 10 || self.PhoneNo().length < 10) {
+                errMsg += 'Invalid Phone Number !!!<br>';
+            }
+        }
+        if (Validate.phone(self.MobileNo()) || self.MobileNo().length > 10 || self.MobileNo().length < 10) {
+            errMsg += 'Invalid Mobile Number !!!<br>';
+        }
+        
         if (errMsg !== '') {
             
             jAlert(errMsg, "Warning.");

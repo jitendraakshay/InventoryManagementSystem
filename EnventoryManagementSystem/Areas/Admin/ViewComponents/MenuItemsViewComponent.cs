@@ -3,7 +3,7 @@ using InventoryManagementSystem.Helper;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
-namespace EnventoryManagementSystem.Areas.Admin.ViewComponents
+namespace InventoryManagementSystem.Areas.Admin.ViewComponents
 {
     public class MenuItemsViewComponent : ViewComponent
     {

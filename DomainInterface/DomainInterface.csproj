@@ -47,6 +47,7 @@
     <Compile Include="IMenuRepository.cs" />
     <Compile Include="IRoleRepo.cs" />
     <Compile Include="ISettingsRepo.cs" />
+    <Compile Include="IUnitsRepo.cs" />
     <Compile Include="IUserProfile.cs" />
     <Compile Include="IUserRepo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

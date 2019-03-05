@@ -80,6 +80,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RoleRepo.cs" />
     <Compile Include="SettingsRepo.cs" />
+    <Compile Include="UnitRepo.cs" />
     <Compile Include="UserProfileRepo.cs" />
     <Compile Include="UserRepo.cs" />
   </ItemGroup>

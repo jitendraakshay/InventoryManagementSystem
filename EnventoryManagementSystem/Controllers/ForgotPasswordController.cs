@@ -2,7 +2,7 @@
 using DomainInterface;
 using System;
 using Microsoft.AspNetCore.Mvc;
-using TicketBookingSystem.Helper;
+using InventoryManagementSystem.Helper;
 using Microsoft.AspNetCore.Authorization;
 
 namespace TicketBookingSystem.Controllers

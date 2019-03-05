@@ -158,7 +158,7 @@
         <script src="~/lib/custom/js/validation.js"></script>
 
     </div>
-    @*<script>
+    <script>
         var path;
         $.ajax({
             url: "/Admin/Menu/GetUserName",
@@ -173,32 +173,18 @@
                 ShowAlertMessage('error', "Some Error Occured");
             }
 
-        });
+        });       
         
+
         $.ajax({
-            url: "/Admin/Menu/GetAppPath",
+            url: "/Admin/UserProfile/GetProfileImage",
             type: "GET",
             async: false,
             success: function (response) {
-                path = response.data;
-                console.log("path>>",path);
-            },
-            error: function () {
-                ShowAlertMessage('error', "Some Error Occured");
-            }
-
-        });
-
-        $.ajax({
-            url: "/Admin/Menu/GetProfileImage",
-            type: "GET",
-            async: false,
-            success: function (response) {
-                var data = JSON.stringify(response.data);
-                console.log(data);
-                console.log(path + "\201902221521034.PNG");
-                $("#profileImage").attr('src', "E://InventoryManagementSystem//EnventoryManagementSystem//wwwroot//profileImage//902221521034.PNG");
-
+                if (response)
+                var extentison = response.imageType.substring(1)
+                var image = "data:Image/" + extentison + ";base64," + response.profileImage;               
+                $("#profileImage").attr('src', image);
             },
             error: function () {
                 ShowAlertMessage('error', "Some Error Occured");
@@ -207,6 +193,6 @@
         });
 
 
-    </script>*@
+    </script>
 </body>
 </html>

@@ -32,12 +32,7 @@ namespace InventoryManagementSystem.Areas.Admin.Controllers
             return await Task.Run(() =>
             {
                 return View(_role.MenuGetBasedOnLoggedInUserRole(_loginUser.GetCurrentUser()));
-            });
-            // string loggedInUserName = _loginUser.GetCurrentUser();
-            //iRole.MenuGetBasedOnLoggedInUserRole(_loginUser.GetCurrentUser());            
-            //return await Task.Run(() => View(iRole.MenuGetBasedOnLoggedInUserRole(_loginUser.GetCurrentUser())));
-
-
+            });         
 
         }
         public async Task<ActionResult> UserName()
@@ -59,10 +54,6 @@ namespace InventoryManagementSystem.Areas.Admin.Controllers
         {    
             return Json(new { data = _userProfile.GetUserProfile(_loginUser.GetCurrentUser()) });
         }
-        [HttpGet]
-        public JsonResult GetAppPath()
-        {
-            return Json(new { data = _userProfile.GetPath() });
-        }
+        
     }
 }

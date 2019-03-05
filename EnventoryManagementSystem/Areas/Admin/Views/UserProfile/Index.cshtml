@@ -9,38 +9,165 @@
     {
         <div class="card">
             <div class="card-header">
-                <h3>Update Profile Image</h3>
+                <h3>Update Profile</h3>
             </div>
             <div class="card-body">
-                <div class="row">
-                    <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 profile-img">
-                        <div class="col-lg-6 col-md-6 col-xs-6 col-sm-6 profile-img">
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.ProfileImage)
-                                <div id="imagemsg" class="text-danger">
+
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#ChangePassword"><h5>Change Password</h5></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#ChangeProfile"><h5>Change Profile</h5></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#ProfileImage"><h5>Change Profile Image</h5></a>
+                    </li>
+
+                </ul>
+
+                <div class="tab-content">
+
+                    <div class="tab-pane container active" id="ChangePassword">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4 col-xs-4 col-lg-4 col-sm-4">
+                                    <div class="form-group">
+                                        <label for="lblOldPassword">Old Password <span class="mandatory">*</span></label>
+                                        <input type="text" class="form-control" id="txtOldPassword" placeholder="Enter Old Password" maxlength="50">
+
+                                    </div>
                                 </div>
-                                <input type="hidden" class="existingProfileImage" />
-                                <input type="file" class="image" name="image" id="image" onchange="setUploadButtonState(this.name,event);" />
+                                <div class="col-md-4 col-xs-4 col-lg-4 col-sm-4">
+                                    <div class="form-group">
+                                        <label for="lblNewPassword">New Password <span class="mandatory">*</span></label>
+                                        <input type="text" class="form-control" id="txtNewPassword" placeholder="Enter New Password" maxlength="50">
+
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-xs-4 col-lg-4 col-sm-4">
+                                    <div class="form-group">
+                                        <label for="lblCPassword">Confirm Password <span class="mandatory">*</span></label>
+                                        <input type="text" class="form-control" id="txtConfirmpassword" placeholder="Confirm Password" maxlength="50">
+
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-lg-6 col-md-6 col-xs-6 col-sm-6 profile-img">
-                            @if (string.IsNullOrEmpty(Model.ProfileImage))
-                            {
-                                <img id="imageimg" style="float: left; width: 50%; height: 100px;" alt="Upload an image" src="~/images/user.png" />
-                            }
-                            else
-                            {
-                                <link href="~/css/custom.css" rel="stylesheet" />
-                                <img id="imageimg" style="float: left; width: 50%; height: 100px;" alt="Upload an image" src="@("~/profileImage/" + Model.ProfileImage)" />
-                            }
+                        <div class="card-footer">
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                                    <button class="btn btn-primary pull-right" id="btnSavePassword">Save</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
+
+                    <div class="tab-pane container fade" id="ChangeProfile">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 profile-img">
+
+                                    <div class="row">
+                                        <div class="col-md-4 col-xs-4 col-lg-4 col-sm-4">
+                                            <div class="form-group">
+                                                <label for="lblFirstName">First Name <span class="mandatory">*</span></label>
+                                                <input type="text" class="form-control" id="txtFirstName" placeholder="Enter First Name" maxlength="50">
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-xs-4 col-lg-4 col-sm-4">
+                                            <div class="form-group">
+                                                <label for="lblFirstName">Middle Name </label>
+                                                <input type="text" class="form-control" id="txtMiddleName" placeholder="Enter First Name" maxlength="50">
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-xs-4 col-lg-4 col-sm-4">
+                                            <div class="form-group">
+                                                <label for="lblLastName">Last Name <span class="mandatory">*</span></label>
+                                                <input type="text" class="form-control" id="txtLastName" placeholder="Enter Last Name" maxlength="50">
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-xs-4 col-lg-4 col-sm-4">
+                                            <div class="form-group">
+                                                <label for="lblEmail">Email <span class="mandatory">*</span></label>
+                                                <input type="text" class="form-control" id="txtEmail" placeholder="Enter Email" maxlength="100">
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-xs-4 col-lg-4 col-sm-4">
+                                            <div class="form-group">
+                                                <label for="lblPhone">Phone</label>
+                                                <input type="text" class="form-control" id="txtPhoneNo" placeholder="Enter Phone No." maxlength="10">
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-xs-4 col-lg-4 col-sm-4">
+                                            <div class="form-group">
+                                                <label for="lblMobile">Mobile <span class="mandatory">*</span></label>
+                                                <input type="text" class="form-control" id="txtMobileNo" placeholder="Enter Mobile No." maxlength="10">
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-xs-4 col-lg-4 col-sm-4">
+                                            <div class="form-group">
+                                                <label for="lblMobile">Address</label>
+                                                <input type="text" class="form-control" id="txtAddress" placeholder="Enter Address" maxlength="100">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <input id="btnSaveUserProfile" class="btn btn-primary pull-right" type="button" data-val="client" value="Save" />
+                        </div>
+                    </div>
+
+
+
+                    <div class="tab-pane container fade" id="ProfileImage">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-xs-6 col-sm-6 profile-img">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.ProfileImage)
+                                        <div id="imagemsg" class="text-danger">
+                                        </div>
+                                        <input type="hidden" class="existingProfileImage" />
+                                        <input type="file" class="image" name="image" id="image" onchange="setUploadButtonState(this.name,event);" />
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-xs-6 col-sm-6 profile-img">
+                                    @if (string.IsNullOrEmpty(Model.ProfileImage))
+                                    {
+                                        <img id="imageimg" style="float: left; width: 100px; height: 100px; border-radius:50%;float:right;" alt="Upload an image" src="~/images/user.png" />
+                                    }
+                                    else
+                                    {
+                                        <link href="~/css/custom.css" rel="stylesheet" />
+                                        <img id="imageimg" style="float: left; width: 100px; height: 100px;border-radius:50%;float:right;" alt="Upload an image" src="@("~/profileImage/" + Model.ProfileImage)" />
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <input id="btnSaveUserProfileImage" class="btn btn-primary pull-right" type="button" data-val="client" value="Save" />
+                        </div>
+                    </div>
+                    
+
+
                 </div>
+
+
+                
             </div>
-            <div class="card-footer">
-                <input id="btnSaveUserProfile" class="btn btn-primary pull-right" type="button" data-val="client" value="Save"/>
+                    
+                </div>
+        }
             </div>
-        </div>
-    }
-    </div>
 <script src="~/js/UserProfile.js"></script>

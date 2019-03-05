@@ -5,9 +5,11 @@ namespace DomainInterface
 {
     public interface IUserProfile
     {
-        ReturnType UserProfileSave(UserProfile oUserProfile);
-        ReturnType UserProfileChangePassword(UserProfile oUserProfile);
+        ReturnType UserProfileImageSave(UserProfile userProfile);
+        List<UserProfile> GetUserProfile(UserProfile userProfile);
+        ReturnType SaveUserProfile(UserProfile userProfile);
+        ReturnType UserProfileChangePassword(string OldPassword, string NewPassword, string UserName);
         IEnumerable<UserProfile> GetUserProfile(string userName = null);
-        string GetPath();
+        string getProfileImageName(string userName);
     }
 }

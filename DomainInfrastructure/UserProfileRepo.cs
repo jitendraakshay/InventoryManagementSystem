@@ -18,17 +18,82 @@ namespace DomainRepository
         {
             connectionString = _connectionString;
         }
-        public ReturnType UserProfileSave(UserProfile oUserProfile)
+        public ReturnType UserProfileImageSave(UserProfile userProfile)
         {
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString.Value.DefaultConnection))
                 {
                     DynamicParameters param = new DynamicParameters();
-                    param.Add("@image", oUserProfile.ProfileImage);
-                    param.Add("@userName", oUserProfile.UserName);                   
+                    param.Add("@image", userProfile.ProfileImage);
+                    param.Add("@userName", userProfile.UserName);                   
                     var returnType = SqlMapper.Query<ReturnType>(
                                      connection, "[dbo].[usp_SaveUserProfile]", param, commandType: CommandType.StoredProcedure).ToList()?.FirstOrDefault() ?? null;
+                    return returnType;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public List<UserProfile> GetUserProfile(UserProfile userProfile)
+        {
+            try
+            {
+                
+                using (SqlConnection connection = new SqlConnection(connectionString.Value.DefaultConnection))
+                {
+                    
+                    DynamicParameters param = new DynamicParameters();
+
+                    param.Add("@userID", userProfile.UserID);
+                    param.Add("@firstName", userProfile.FirstName);
+                    param.Add("@middleName", userProfile.MiddleName);
+                    param.Add("@lastName", userProfile.LastName);
+                    param.Add("@userName", userProfile.UserName);
+                    param.Add("@email", userProfile.Email);
+                    param.Add("@phoneNo", userProfile.PhoneNo);
+                    param.Add("@address", userProfile.Address);
+                    param.Add("@mobileNo", userProfile.MobileNo);
+                    param.Add("@password", userProfile.Password);                   
+                    param.Add("@entryBy", userProfile.EntryBy);                   
+                    param.Add("@operation", 1);// 1 select, 2 update            
+                    var returnType = SqlMapper.Query<UserProfile>(
+                                     connection, "[dbo].[usp_CrudUserProfile]", param, commandType: CommandType.StoredProcedure).ToList();
+                    return returnType;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public ReturnType SaveUserProfile(UserProfile userProfile)
+        {
+            try
+            {
+
+                using (SqlConnection connection = new SqlConnection(connectionString.Value.DefaultConnection))
+                {
+
+                    DynamicParameters param = new DynamicParameters();
+
+                    param.Add("@userID", userProfile.UserID);
+                    param.Add("@firstName", userProfile.FirstName);
+                    param.Add("@middleName", userProfile.MiddleName);
+                    param.Add("@lastName", userProfile.LastName);
+                    param.Add("@userName", userProfile.UserName);
+                    param.Add("@email", userProfile.Email);
+                    param.Add("@phoneNo", userProfile.PhoneNo);
+                    param.Add("@address", userProfile.Address);
+                    param.Add("@mobileNo", userProfile.MobileNo);
+                    param.Add("@password", userProfile.Password);
+                    param.Add("@entryBy", userProfile.EntryBy);
+                    param.Add("@operation", 2);// 1 select, 2 update            
+                    var returnType = SqlMapper.Query<ReturnType>(
+                                     connection, "[dbo].[usp_CrudUserProfile]", param, commandType: CommandType.StoredProcedure).ToList()?.FirstOrDefault() ?? null;
                     return returnType;
                 }
             }
@@ -56,18 +121,39 @@ namespace DomainRepository
                 throw ex;
             }
 
-        }
-        public ReturnType UserProfileChangePassword(UserProfile oUserProfile)
+        }        
+        public string getProfileImageName(string userName)
         {
-            return new ReturnType();
+            using (SqlConnection connection = new SqlConnection(connectionString.Value.DefaultConnection))
+            {
+                DynamicParameters param = new DynamicParameters();
+                param.Add("@userName", userName);
+                var returnType = SqlMapper.Query(connection, "[dbo].[usp_GetProfileImageName]", param, commandType: CommandType.StoredProcedure).SingleOrDefault();
+
+                return returnType.Image;
+            }
         }
-        
-        public string GetPath()
+
+        public ReturnType UserProfileChangePassword(string OldPassword, string NewPassword, string UserName)
         {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString.Value.DefaultConnection))
+                {
+                    DynamicParameters param = new DynamicParameters();
+                    param.Add("@oldPassword", OldPassword);
+                    param.Add("@newPassword", NewPassword);
+                    param.Add("@userName", UserName);
+                    var returnType = SqlMapper.Query<ReturnType>(
+                                      connection, "[dbo].[usp_SaveUserPassword]", param, commandType: CommandType.StoredProcedure).ToList()?.FirstOrDefault() ?? null;
 
-
-            return Path.Combine(
-                     Directory.GetCurrentDirectory(), "wwwroot\\profileImage");
+                    return returnType;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

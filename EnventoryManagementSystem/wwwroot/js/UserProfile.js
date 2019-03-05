@@ -3,57 +3,146 @@ $(function () {
     Init();
     var ele = $('div#userProfileContainer');
     ele.find('#OldPassword').text('');
-
-
+    GetProfileImage();
+    GetUserProfile();
     //$('#imageimg').attr('src', '/Content/dist/uploadedImages/' + res.data.ProfileImage);
     
 
+    $('#btnSaveUserProfileImage').on('click', function (e) {
+        e.isDefaultPrevented();
+        SaveUserProfileImage();
+    });
     $('#btnSaveUserProfile').on('click', function (e) {
         e.isDefaultPrevented();
         SaveUserProfile();
     });
+    $('#btnSavePassword').on('click', function (e) {
+        e.isDefaultPrevented();
+        SavePassword();
+    });
+    
 
     $('#btnChangePassword').on('click', function (e) {
         e.isDefaultPrevented();
         ChangePassword();
     });
 });
+var UserID;
 
 
-
-$("#StateID").on("change", function () {
-    var StateID = ($('#StateID').val() == null || $('#StateID').val() == "") ? 0 : $('#StateID').val();
-    var model = {        
-        stateID: StateID    };
+function SavePassword() {
+    if (ValidatePassword()) {
         $.ajax({
-            url: "/Admin/UserProfile/GetCityByStates",
-            type: "GET",
-            data: model,
-            dataType: 'json',
-            success: function (response) {
+            url: "/Admin/UserProfile/SavePassword",
+            type: "POST",
+            data: {
+                'OldPassword': $("#txtOldPassword").val(),
+                'NewPassword': $("#txtNewPassword").val()
+            },
+            success: function (res) {
 
-                var optionsHtml = '<option value="0" selected disabled>-- Select --</option>';
-                $.each(response.data, function (index, value) {
-                    optionsHtml += '<option value="' + value.CityID + '">' + value.CityName + '</option>';
-                });
-                $("#CityID").html(optionsHtml);
+                if (res.result == false) {
+                    jAlert(res.message, "Error");
+                }
+                else {
+                    jAlert(res.message, "Success");
+                }
 
-                //$('#CityID').SumoSelect({
-                //    search: true,
-                //    searchText: 'Search...'
-                //});
-                //$('#CityID')[0].sumo.reload();
             },
             error: function () {
-                ShowAlertMessage('error', "Some Error Occured");
+                jAlert("Some Error Occured", "Error");
+
             }
-
         });
-    
-
-});
+    }
+}
 
 function SaveUserProfile() {
+    if (ValidateProfile()) {
+        $.ajax({
+            url: "/Admin/UserProfile/SaveUserProfile",
+            type: "POST",
+            data: {
+                UserID: UserID,
+                FirstName: $("#txtFirstName").val(),                
+                LastName: $("#txtLastName").val(),
+                Email: $("#txtEmail").val(),
+                PhoneNo: $("#txtPhoneNo").val(),
+                MobileNo: $("#txtMobileNo").val(),
+                Address: $("#txtAddress").val()
+            },
+            success: function (res) {
+                jAlert(res.message, "Success");
+                SetProfileImage();
+            },
+            error: function () {
+                jAlert("Some Error Occured in Uploading Image", "Error");
+
+            }
+        });
+    }
+    console.log($("#txtPhoneNo").val());
+}
+
+function ValidateProfile() {
+    var errMsg = '';
+
+    if (Validate.empty($("#txtFirstName").val())) {
+        errMsg += 'Invalid First Name !!!<br>';
+    }
+    
+    if (Validate.empty($("#txtLastName").val())) {
+        errMsg += 'Invalid Last Name !!!<br>';
+    }
+    if (Validate.email($("#txtEmail").val())) {
+        errMsg += "Invalid Email !!!<br>";
+    }
+    
+    if ($("#txtPhoneNo").val()!="") {
+        if (Validate.phone($("#txtPhoneNo").val()) || $("#txtPhoneNo").val().length > 10 || $("#txtPhoneNo").val().length < 10) {
+            errMsg += 'Invalid Phone Number !!!<br>';
+        }
+    }
+    if (Validate.phone($("#txtMobileNo").val()) || $("#txtMobileNo").val().length > 10 || $("#txtMobileNo").val().length < 10) {
+        errMsg += 'Invalid Mobile Number !!!<br>';
+    }
+
+    if (errMsg !== '') {
+
+        jAlert(errMsg, "Warning.");
+        return false;
+    }
+    else {
+        return true;
+    }
+}
+
+function ValidatePassword() {
+    var errMsg = '';
+
+    if (Validate.empty($("#txtOldPassword").val())) {
+        errMsg += 'Invalid Old Password !!!<br>';
+    }
+
+    if (Validate.empty($("#txtNewPassword").val())) {
+        errMsg += 'Invalid New Password !!!<br>';
+    }
+    if ($("#txtNewPassword").val() != $("#txtConfirmpassword").val()) {
+        errMsg += 'Confirm Password Does Not Match !!!<br>';
+    }
+
+    if (errMsg !== '') {
+
+        jAlert(errMsg, "Warning.");
+        return false;
+    }
+    else {
+        return true;
+    }
+}
+
+
+function SaveUserProfileImage() {
 
     var ele = $('div#userProfileContainer');    
    
@@ -64,7 +153,6 @@ function SaveUserProfile() {
         var file = fileUpload[0].files[0];
         var dataImg = new FormData();
         dataImg.append('file', file);
-
         $.ajax({
             url: "/Admin/UserProfile/FileUpload",
             type: "POST",
@@ -73,14 +161,77 @@ function SaveUserProfile() {
             processData: false,
             data: dataImg,
             success: function (res) {
-                ShowAlertMessage('success', res);
-               
+                jAlert(res, "Success");
+                SetProfileImage();
             },
             error: function () {
-                ShowAlertMessage('error', "Some Error Occured in Uploading Image");
+                jAlert("Some Error Occured in Uploading Image", "Error");
+                
             }
-        });
+    });
+
+        
 }
+
+function GetProfileImage() {
+    $.ajax({
+        url: "/Admin/UserProfile/GetProfileImage",
+        type: "GET",
+        async: false,
+        success: function (response) {
+            var extentison = response.imageType.substring(1)
+            var image = "data:Image/" + extentison + ";base64," + response.profileImage;
+            $("#imageimg").attr('src', image);
+        },
+        error: function () {
+            jAlert("Some Error Occured", "Error");
+            
+        }
+
+    });
+}
+function SetProfileImage() {
+    $.ajax({
+        url: "/Admin/UserProfile/GetProfileImage",
+        type: "GET",
+        async: false,
+        success: function (response) {
+            var extentison = response.imageType.substring(1)
+            var image = "data:Image/" + extentison + ";base64," + response.profileImage;
+            $("#profileImage").attr('src', "");
+            $("#profileImage").attr('src', image);
+        },
+        error: function () {
+            jAlert("Some Error Occured", "Error");
+        }
+
+    });
+}
+function GetUserProfile() {
+    $.ajax({
+        url: "/Admin/UserProfile/GetUserProfile",
+        type: "POST",
+        async: false,
+        success: function (response) {
+            var obj = JSON.parse(response);
+            console.log(obj.ResponseData[0].FirstName);
+            $("#txtFirstName").val(obj.ResponseData[0].FirstName);
+            $("#txtMiddleName").val(obj.ResponseData[0].MiddleName);
+            $("#txtLastName").val(obj.ResponseData[0].LastName);
+            $("#txtEmail").val(obj.ResponseData[0].Email);
+            $("#txtPhoneNo").val(obj.ResponseData[0].PhoneNo);
+            $("#txtMobileNo").val(obj.ResponseData[0].MobileNo);
+            $("#txtAddress").val(obj.ResponseData[0].Address);
+            UserID = obj.ResponseData[0].UserID;
+          
+        },
+        error: function () {
+            jAlert("Some Error Occured", "Error");
+        }
+
+    });
+}
+
 
 function ChangePassword() {
 

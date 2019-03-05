@@ -13,7 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Data;
 using TicketBookingSystem;
 
-namespace EnventoryManagementSystem
+namespace InventoryManagementSystem
 {
     public class Startup
     {
@@ -33,7 +33,7 @@ namespace EnventoryManagementSystem
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<ReadConfig>(Configuration.GetSection("ConnectionStrings"));
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();            
             services.AddTransient<IMenuRepository, MenuRepository>();
             services.AddTransient<IRoleRepo, RoleRepo>();
             services.AddTransient<IAuthorizeUserRepo, AuthorizeUserRepo>();
@@ -43,6 +43,7 @@ namespace EnventoryManagementSystem
             services.AddTransient<ISettingsRepo, SettingsRepo>();
             services.AddTransient<IAuthorizeMenuHelper, AuthorizeMenuHelper>();
             services.AddTransient<IUserProfile, UserProfileRepo>();
+            services.AddTransient<IUnitsRepo, UnitRepo>();
 ;
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, config =>

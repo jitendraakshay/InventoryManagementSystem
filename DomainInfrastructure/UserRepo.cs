@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Dapper;
 using DomainEntities;
 using DomainInterface;
-using System.Data;
-using Dapper;
-using Newtonsoft.Json;
-using System.Data.SqlClient;
 using Microsoft.Extensions.Options;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
+using System.Linq;
 
 namespace DomainRepository
 {
@@ -42,6 +39,7 @@ namespace DomainRepository
                     
                     param.Add("@userID", user.UserID);
                     param.Add("@firstName", user.FirstName);
+                    param.Add("@middleName", user.MiddleName);
                     param.Add("@lastName", user.LastName);
                     param.Add("@userName", user.UserName);
                     param.Add("@email", user.Email);

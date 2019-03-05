@@ -84,7 +84,7 @@
                                     
                                     <td>
                                         <a class="btn btn-primary bg-red-btn" data-bind="click:$root.resetPassword">
-                                            <i class="fa fa-unlock-alt"></i>
+                                            <i class="fa fa-recycle"></i>
                                         </a>
                                     </td>
 
@@ -100,56 +100,35 @@
                             <div class="col-md-4 col-xs-4 col-lg-4 col-sm-4">
                                 <div class="form-group">
                                     <label for="lblFirstName">First Name <span class="mandatory">*</span></label>
-                                    <input type="text" class="form-control" id="txtFirstName" placeholder="Enter First Name" data-bind="value:FirstName">
+                                    <input type="text" class="form-control" id="txtFirstName" placeholder="Enter First Name" data-bind="value:FirstName" maxlength="50">
+
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-xs-4 col-lg-4 col-sm-4">
+                                <div class="form-group">
+                                    <label for="lblFirstName">Middle Name </label>
+                                    <input type="text" class="form-control" id="txtMiddleNaame" placeholder="Enter First Name" data-bind="value:MiddleName" maxlength="50">
 
                                 </div>
                             </div>
                             <div class="col-md-4 col-xs-4 col-lg-4 col-sm-4">
                                 <div class="form-group">
                                     <label for="lblLastName">Last Name <span class="mandatory">*</span></label>
-                                    <input type="text" class="form-control" id="txtLastName" placeholder="Enter Last Name" data-bind="value:LastName">
+                                    <input type="text" class="form-control" id="txtLastName" placeholder="Enter Last Name" data-bind="value:LastName" maxlength="50">
 
                                 </div>
                             </div>
                             <div class="col-md-4 col-xs-4 col-lg-4 col-sm-4">
                                 <div class="form-group">
                                     <label for="lblUserName">User Name <span class="mandatory">*</span></label>
-                                    <input type="text" class="form-control" id="txtUserName" placeholder="Enter User Name" data-bind="value:UserName">
-
-                                </div>
-                            </div>
-                            <div class="col-md-4 col-xs-4 col-lg-4 col-sm-4">
-                                <div class="form-group">
-                                    <label for="lblEmail">Email <span class="mandatory">*</span></label>
-                                    <input type="text" class="form-control" id="txtEmail" placeholder="Enter Email" data-bind="value:Email">
-
-                                </div>
-                            </div>
-                            <div class="col-md-4 col-xs-4 col-lg-4 col-sm-4">
-                                <div class="form-group">
-                                    <label for="lblPhone">Phone</label>
-                                    <input type="text" class="form-control" id="txtPhone" placeholder="Enter Phone No." data-bind="value:PhoneNo">
-
-                                </div>
-                            </div>
-                            <div class="col-md-4 col-xs-4 col-lg-4 col-sm-4">
-                                <div class="form-group">
-                                    <label for="lblMobile">Mobile <span class="mandatory">*</span></label>
-                                    <input type="text" class="form-control" id="txtPhone" placeholder="Enter Mobile No." data-bind="value:MobileNo">
-
-                                </div>
-                            </div>
-                            <div class="col-md-4 col-xs-4 col-lg-4 col-sm-4">
-                                <div class="form-group">
-                                    <label for="lblMobile">Address</label>
-                                    <input type="text" class="form-control" id="txtAddress" placeholder="Enter Address" data-bind="value:Address">
+                                    <input type="text" class="form-control" id="txtUserName" placeholder="Enter User Name" data-bind="value:UserName" maxlength="50">
 
                                 </div>
                             </div>
                             <div class="col-md-4 col-xs-4 col-lg-4 col-sm-4">
                                 <div class="form-group">
                                     <label for="lblPassword">Password <span class="mandatory">*</span></label>
-                                    <input type="text" class="form-control" id="txtPassword" placeholder="Enter Password" data-bind="value:Password">
+                                    <input type="text" class="form-control" id="txtPassword" placeholder="Enter Password" data-bind="value:Password" maxlength="100">
 
                                 </div>
                             </div>
@@ -162,6 +141,34 @@
                             </div>
                             <div class="col-md-4 col-xs-4 col-lg-4 col-sm-4">
                                 <div class="form-group">
+                                    <label for="lblEmail">Email <span class="mandatory">*</span></label>
+                                    <input type="text" class="form-control" id="txtEmail" placeholder="Enter Email" data-bind="value:Email" maxlength="100">
+
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-xs-4 col-lg-4 col-sm-4">
+                                <div class="form-group">
+                                    <label for="lblPhone">Phone</label>
+                                    <input type="text" class="form-control" id="txtPhone" placeholder="Enter Phone No." data-bind="value:PhoneNo" maxlength="10">
+
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-xs-4 col-lg-4 col-sm-4">
+                                <div class="form-group">
+                                    <label for="lblMobile">Mobile <span class="mandatory">*</span></label>
+                                    <input type="text" class="form-control" id="txtPhone" placeholder="Enter Mobile No." data-bind="value:MobileNo" maxlength="10">
+
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-xs-4 col-lg-4 col-sm-4">
+                                <div class="form-group">
+                                    <label for="lblMobile">Address</label>
+                                    <input type="text" class="form-control" id="txtAddress" placeholder="Enter Address" data-bind="value:Address" maxlength="100">
+
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-xs-4 col-lg-4 col-sm-4">
+                                <div class="form-group">
                                     <label for="lblRole">Role <span class="mandatory">*</span></label>
                                     <select id="ddlRole" name="ddlRole" class="selectpicker form-control" data-live-search="true" data-bind="selectPicker:true, options:RoleArray, value:SelectedRole,optionsText:'RoleName',optionsValue:'RoleID'" multiple="multiple"></select>
                                     @*<select id="ddlRole" class="selectpicker form-control" data-live-search="true" data-live-search-style="begins" data-bind='options: RoleArray, optionsText: "RoleName",selectPicker: true, optionsValue: RoleID, value:SelectedRole,event:{ change: $root.GetLocationByCityID }' multiple="multiple"></select>*@
@@ -169,12 +176,17 @@
                             </div>
                             <div class="col-md-4 col-xs-4 col-lg-4 col-sm-4">
                                 <div class="form-group">
-                                    <label for="lblIsActive">Is Active <span class="mandatory">*</span></label>                                    
+                                    <label for="lblIsActive">Is Active <span class="mandatory">*</span></label>
                                     <input type="checkbox" class="form-control check margin-top-10" data-bind="checked: IsActive" />
                                 </div>
                             </div>
 
-                            <div class="col-md-4 col-xs-4 col-lg-4 col-sm-4 margin-top-25">
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 col-xs-4 col-lg-4 col-sm-4 pull-right">&nbsp;</div>
+                            <div class="col-md-4 col-xs-4 col-lg-4 col-sm-4 pull-right">&nbsp;</div>
+                            <div class="col-md-4 col-xs-4 col-lg-4 col-sm-4 pull-right">
 
                                 <button id="btnCancel" class="btn btn-primary pull-right margin-left-20" data-bind="click:clearForm">Cancel</button>
 
@@ -182,7 +194,6 @@
 
                             </div>
                         </div>
-                        
                             
                         
                     </div>

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http.Features;
 using System;
 using System.Threading.Tasks;
-using TicketBookingSystem.Helper;
+using InventoryManagementSystem.Helper;
 
 namespace TicketBookingSystem
 {
