@@ -24,6 +24,8 @@ namespace DomainEntities
         public string EntryBy { get; set; }
         public string EntryDate { get; set; }
         public bool IsActive { get; set; }
+        public long SerialNo { get; set; }
+        public long TotalCount { get; set; }
 
     }
 }

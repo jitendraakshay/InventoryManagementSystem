@@ -16,8 +16,11 @@ ul li {
     list-style: none;
 }
 .text-red{
-    color:#ff0000;
-    
+    color:#b10707;    
+}
+.text-blue
+{
+    color:#268b04;
 }
 .btn i {
     margin-right: 0px !important;
@@ -35,7 +38,10 @@ ul li {
 .margin-left-20{
     margin-left:20px;
 }
-
+.notactive {
+    pointer-events: none;
+    cursor: default;
+}
 .loginExpireMessage{
     font-weight:normal;
     font-size:14px;
@@ -72,9 +78,18 @@ ul li {
 .margin-top-30 {
     margin-top: 30px !important;
 }
+.margin-right-4 {
+    margin-right: 4px !important;
+}
+.margin-right-5{
+    margin-right: 5px !important;
+}
 .margin-right-10
 {
     margin-right:10px !important;
+}
+.margin-top-minus-5{
+    margin-top:-5px !important;
 }
 .btn.btn-lg.btn-primary.btn-block.login-now {
     margin: 40px 0 10px;
@@ -95,5 +110,15 @@ ul li {
     box-shadow: 0 0 13px rgba(0, 0, 0, 0.13);
 }
 
+.no-sort::after {
+    display: none !important;
+}
 
+.no-sort::before {
+    display: none !important;
+}
 
+.no-sort {
+    pointer-events: none !important;
+    cursor: default !important;
+}

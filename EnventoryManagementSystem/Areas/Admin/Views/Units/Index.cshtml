@@ -14,94 +14,85 @@
 
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab" href="#AllUnits"><h5><span id="spnAllUnits">All Units</span></h5></a>
+                        <a class="nav-link active" data-toggle="tab" href="#AllUnits"><h5><span id="spnAllUnits">Units</span></h5></a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#CreateUnit"><h5><span id="spnCreateUnit"> Create Unit</span></h5></a>
-                    </li>
+                    
                 </ul>
 
                 <div class="tab-content">
 
                     <div class="tab-pane container active" id="AllUnits">
                         <div class="card-body">
-                            <table class="table table-responsive table-hover" style="display:table; width:100%;">
-                                <thead style="border-top:none !important;border-bottom:2px solid #0094ff !important; width:100%;">
-                                    <tr>
-                                        <th style="border-top:none !important;"><h6><b>Serial No</b></h6></th>
-                                        <th style="border-top:none !important;"><h6>Unit Name</h6></th>
-                                        <th style="border-top:none !important;"><h6>Description</h6></th>
-                                        <th style="border-top:none !important;"><h6>Is Active</h6></th>                                        
-                                        <th style="border-top:none !important;"><h6>Action</h6></th>
 
-                                    </tr>
-                                </thead>
-                                <tbody data-bind="foreach: UnitArray" style="width:100%;">
-                                    <tr>
-                                        <td>
-                                            <span data-bind="text:($index() + 1)" />
-                                        </td>
-                                        <td>
-                                            <span data-bind="text:UnitName" class="text-capitalize"></span>
-                                        </td>
-                                        <td>
-                                            <span data-bind="text:Description" class="text-capitalize"></span>
-                                        </td>
-                                      
-                                        <td>
-                                            <span data-bind="text:IsActive==true?'Yes':'No'" class="text-capitalize"></span>
-                                        </td>
+                            <div class="row">
+                                <div class="col-md-3 col-xs-3 col-lg-3 col-sm-3">
+                                    <div class="form-group">
+                                        <label for="lblFirstName">Unit Name <span class="mandatory">*</span></label>
+                                        <input type="text" class="form-control" id="txtFirstName" placeholder="Enter First Name" maxlength="50" data-bind="value:UnitName">
 
-                                        <td>
-                                            <a class="btn btn-primary bg-red-btn" data-bind="click:$root.UpdateUnit">
-                                                <i class="fa fa-pencil"></i>
-                                            </a>
-                                        </td>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-xs-3 col-lg-3 col-sm-3">
+                                    <div class="form-group">
+                                        <label for="lblFirstName">Description </label>
+                                        <input type="text" class="form-control" id="txtMiddleName" placeholder="Enter Description" maxlength="50" data-bind="value:Description">
 
-                                    </tr>
-                                </tbody>
-                            </table>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-xs-3 col-lg-3 col-sm-3">
+                                    <div class="form-group">
+                                        <label for="lblIsActive">Is Active <span class="mandatory">*</span></label>
+                                        <input type="checkbox" class="form-control check margin-top-10" data-bind="checked: IsActive" />
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-xs-3 col-lg-3 col-sm-3">
+                                    <button class="btn btn-primary pull-right margin-top-25" data-bind="click:clearForm" id="btnResetUnit">Reset</button>
+                                    <button class="btn btn-primary pull-right margin-top-25 margin-right-10" data-bind="click:saveUnit" id="btnSaveUnit">Save</button>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+
+                                <table class="table table-responsive table-hover" style="display:table; width:100%;">
+                                    <thead style="border-top:none !important;border-bottom:2px solid #0094ff !important; width:100%;">
+                                        <tr>
+                                            <th style="border-top:none !important;"><h6><b>Serial No</b></h6></th>
+                                            <th style="border-top:none !important;"><h6>Unit Name</h6></th>
+                                            <th style="border-top:none !important;"><h6>Description</h6></th>
+                                            <th style="border-top:none !important;"><h6>Is Active</h6></th>
+                                            <th style="border-top:none !important;"><h6>Action</h6></th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody data-bind="foreach: UnitArray" style="width:100%;">
+                                        <tr>
+                                            <td>
+                                                <span data-bind="text:($index() + 1)" />
+                                            </td>
+                                            <td>
+                                                <span data-bind="text:UnitName" class="text-capitalize"></span>
+                                            </td>
+                                            <td>
+                                                <span data-bind="text:Description" class="text-capitalize"></span>
+                                            </td>
+
+                                            <td>
+                                                <span data-bind="text:IsActive==true?'Yes':'No'" class="text-capitalize"></span>
+                                            </td>
+
+                                            <td>
+                                                <a class="btn btn-primary bg-red-btn" data-bind="click:$root.UpdateUnit">
+                                                    <i class="fa fa-pencil"></i>
+                                                </a>
+                                            </td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                         
                     </div>
-
-                    <div class="tab-pane container fade" id="CreateUnit">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 profile-img">
-
-                                    <div class="row">
-                                        <div class="col-md-4 col-xs-4 col-lg-4 col-sm-4">
-                                            <div class="form-group">
-                                                <label for="lblFirstName">Unit Name <span class="mandatory">*</span></label>
-                                                <input type="text" class="form-control" id="txtFirstName" placeholder="Enter First Name" maxlength="50" data-bind="value:UnitName">
-
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4 col-xs-4 col-lg-4 col-sm-4">
-                                            <div class="form-group">
-                                                <label for="lblFirstName">Description </label>
-                                                <input type="text" class="form-control" id="txtMiddleName" placeholder="Enter First Name" maxlength="50" data-bind="value:Description">
-
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4 col-xs-4 col-lg-4 col-sm-4">
-                                            <div class="form-group">
-                                                <label for="lblIsActive">Is Active <span class="mandatory">*</span></label>
-                                                <input type="checkbox" class="form-control check margin-top-10" data-bind="checked: IsActive" />
-                                            </div>
-                                        </div>
-                              
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-footer">
-                            <button id="btnCancel" class="btn btn-primary pull-right margin-left-20" data-bind="click:clearForm">Cancel</button>
-                            <button class="btn btn-primary pull-right" data-bind="click:saveUser" id="btnSaveUnit">Save</button>
-                        </div>
-                    </div>
-
                 </div>
 
 

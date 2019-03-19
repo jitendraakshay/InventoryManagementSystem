@@ -64,11 +64,15 @@ namespace DomainRepository
         #endregion
 
         #region Get User List
-        public List<User> getAllUsers()
+        public List<User> getAllUsers(DataTableFilters filter)
         {
             using (SqlConnection connection = new SqlConnection(connectionString.Value.DefaultConnection))
             {
                 DynamicParameters param = new DynamicParameters();
+                param.Add("@PageNumber", filter.Offset);
+                param.Add("@PageSize", filter.Limit);
+                //param.Add("@SortColumn", filter.SortColumn);
+                //param.Add("@SortDirection", filter.SortDirection);
                 param.Add("@operation", 2);
                 var returnType = SqlMapper.Query<User>(
                                   connection, "[dbo].[usp_CrudUser]", param, commandType: CommandType.StoredProcedure).ToList();

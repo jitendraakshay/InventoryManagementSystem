@@ -17,21 +17,10 @@ namespace InventoryManagementSystem.Areas.Admin.Controllers
     [Area("Admin")]
     public class UserController : Controller
     {
-        //User user = new User();
-        //private readonly IMessageHandlerRepository messageRepo;
-        private readonly IUserRepo userRepo;
-        //private readonly IStateRepository _iStateRepo;
-        //private readonly IStatusRepository _iStatusRepo;
-        //private readonly ICityRepository _iCityRepo;
-        //private readonly IDepartmentRepository _iDepartmentRepo;
-        //private readonly IDesignationRepository _iDesignationRepo;
+       
+        private readonly IUserRepo userRepo;        
         private readonly IRoleRepo roleRepo;
         private readonly ILoginUser loginUser;
-        //private readonly ISettingsRepository _iSettingsRepo;
-        //private readonly INotificationRepository _iNotificationRepo;
-        //private readonly ITemplateRepository _iTemplateRepo;
-        //string imageName;
-
         #region Constructor
         public UserController(IUserRepo UserRepo, IRoleRepo RoleRepo, ILoginUser LoginUser)
         {
@@ -46,7 +35,9 @@ namespace InventoryManagementSystem.Areas.Admin.Controllers
         // GET: Admin/Users
 
         public IActionResult Index()
-        {            
+        {
+            int pageLength = 10;
+            ViewBag.pageLength = pageLength;
             return View();
         }
         #endregion
@@ -91,14 +82,16 @@ namespace InventoryManagementSystem.Areas.Admin.Controllers
         #endregion
 
 
-        [HttpGet]
-        public object getAllUsers()
+        [HttpPost]
+        public JsonResult getAllUsers()
         {
-            JsonResponse response = new JsonResponse();
-            List<User> model = userRepo.getAllUsers();   
-            response.ResponseData = model;
-            return JsonConvert.SerializeObject(response);
 
+            DataTableFilters filter = new DataTableFilters();
+            filter.Offset = Convert.ToInt32(Request.Form["start"]);
+            filter.Limit = Convert.ToInt32(Request.Form["length"]);
+            List<User> UserList = userRepo.getAllUsers(filter);
+            long totalRows = UserList.Count > 0 ? UserList[0].TotalCount : 0;
+            return Json(new { data = UserList, recordsTotal = totalRows, recordsFiltered = totalRows });
         }
         [HttpGet]
         public ReturnType deleteUser(User user)

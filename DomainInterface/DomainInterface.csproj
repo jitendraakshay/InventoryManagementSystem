@@ -45,6 +45,7 @@
     <Compile Include="IAuthorizeUserRepo.cs" />
     <Compile Include="IDashboardRepo.cs" />
     <Compile Include="IMenuRepository.cs" />
+    <Compile Include="IProductRepo.cs" />
     <Compile Include="IRoleRepo.cs" />
     <Compile Include="ISettingsRepo.cs" />
     <Compile Include="IUnitsRepo.cs" />

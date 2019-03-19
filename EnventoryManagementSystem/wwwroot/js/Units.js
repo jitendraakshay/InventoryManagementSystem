@@ -51,8 +51,8 @@ var UnitViewModel = function () {
     }
 
     //NB : SAVE Unit 
-    self.saveUser = function () {
-        
+    self.saveUnit = function () {
+        if (self.Validate()) {
             $.ajax({
                 type: "POST",
                 url: "/Admin/Units/saveUnit",
@@ -62,13 +62,12 @@ var UnitViewModel = function () {
                     Description: ko.toJS(self.Description),
                     IsActive: ko.toJS(self.IsActive),
                     EntryBy: ko.toJS(self.EntryBy),
-                    EntryDate: ko.toJS(self.EntryDate)                    
+                    EntryDate: ko.toJS(self.EntryDate)
                 },
                 success: function (data) {
-                    jAlert(data.message, "Success");      
+                    jAlert(data.message, "Success");
                     self.getUnits();
-                    self.clearForm();
-                    $('.nav-tabs a[href="#AllUnits"]').tab('show');
+                    self.clearForm();                    
                 },
                 error: function () {
                     jAlert("Some Error Occured", "Error");
@@ -76,96 +75,28 @@ var UnitViewModel = function () {
                 }
             });
 
-       
+        }
 
     }
-    //END SAVE USER
+    //END SAVE Unit
+    
 
+    ////TAB CHANGE EVENT TO CLEAR FORM THAT IS SET FROM EDIT USER
+    //$("a[href='#AllUnits']").on('shown.bs.tab', function (e) {
+    //    self.clearForm();
+    //});
+    ////END TAB CHANGE EVENT
 
-    //TAB CHANGE EVENT TO CLEAR FORM THAT IS SET FROM EDIT USER
-    $("a[href='#AllUnits']").on('shown.bs.tab', function (e) {
-        self.clearForm();
-    });
-    //END TAB CHANGE EVENT
-
-    //NB: DELETE USER
-    self.activateUnit = function (data) {
-
-        //var msg = "";
-        //var active = "";
-        //if (data.IsActive == true) {
-        //    msg = 'Disable account?';
-        //    active = 'false';
-        //}
-        //else {
-        //    msg = 'Enable account?';
-        //    active = 'true';
-        //}
-
-        //jConfirm('Are you sure?', msg, function (r) {
-        //    if (r) {
-        //        $.ajax({
-        //            url: "/Admin/User/deleteUser",
-        //            type: "GET",
-        //            data: {
-        //                UserID: data.UserID,
-        //                IsActive: active
-        //            },
-        //            success: function (response) {
-        //                jAlert(response.message, "Success");
-        //                //ShowAlertMessage('success', response.message);   
-        //                //self.UserArray.remove(data);    
-        //                self.getAllUsers();
-        //            },
-        //            error: function () {
-        //                jAlert("Some Error Occured", "Error");
-        //                //ShowAlertMessage('error', "Some Error Occured");
-        //            }
-        //        });
-        //    }
-        //});
-
-    }
-    //END DELETE USER
-
-
-    //NB: RESET ACCOUNT
-    self.resetPassword = function (data) {
-        //jConfirm('Are you sure?', "Reset Password?", function (r) {
-        //    if (r) {
-        //        $.ajax({
-        //            url: "/Admin/User/resetPassword",
-        //            type: "GET",
-        //            data: {
-        //                UserID: data.UserID,
-        //                UserName: data.UserName
-        //            },
-        //            success: function (response) {
-        //                jAlert(response.message, "Success");
-        //                //ShowAlertMessage('success', response.message);
-        //                //self.UserArray.remove(data);    
-        //                self.getAllUsers();
-        //            },
-        //            error: function () {
-        //                jAlert("Some Error Occured", "Error");
-        //                //ShowAlertMessage('error', "Some Error Occured");
-        //            }
-        //        });
-        //    }
-        //});
-    }
-    //END RESET ACCOUNT
-
-
+    
     //NB: UPDATE USER
     self.UpdateUnit = function (data) {
         self.UnitID(ko.toJS(data.UnitID));
         self.UnitName(ko.toJS(data.UnitName));
         self.Description(ko.toJS(data.Description));
         self.IsActive(ko.toJS(data.IsActive));        
-        $('.nav-tabs a[href="#CreateUnit"]').tab('show');
-        $('#spnCreateUnit').text("Update Unit");
-        $('#btnSaveUnit').text("Update Unit");
+        //$('.nav-tabs a[href="#CreateUnit"]').tab('show');
+        //$('#spnCreateUnit').text("Update Unit");
+        //$('#btnSaveUnit').text("Update Unit");
 
     }
     //END UPDATE USER
@@ -176,58 +107,30 @@ var UnitViewModel = function () {
         self.UnitName(null);
         self.Description(null);        
         self.IsActive(true);        
-        $('#spnCreateUnit').text("Create Unit");
-        $('#btnSaveUnit').text("Save Unit");
+        //$('#spnCreateUnit').text("Create Unit");
+        //$('#btnSaveUnit').text("Save Unit");
     }
     //END CLEAR FORM
 
 
-    //NB: Validate USER BEFORE SAVE
+    
 
-    //self.Validate = function () {
-    //    var errMsg = '';
+    self.Validate = function () {
+        var errMsg = '';
 
-    //    if (Validate.empty(ko.toJS(self.FirstName()))) {
-    //        errMsg += 'Invalid First Name !!!<br>';
-    //    }
+        if (Validate.empty(ko.toJS(self.UnitName()))) {
+            errMsg += 'Invalid Unit Name !!!<br>';
+        }
 
-    //    if (Validate.empty(ko.toJS(self.LastName()))) {
-    //        errMsg += 'Invalid Last Name !!!<br>';
-    //    }
-    //    if (Validate.empty(ko.toJS(self.UserName()))) {
-    //        errMsg += 'Invalid User Name !!!<br>';
-    //    }
+        if (errMsg !== '') {
 
-    //    if (self.UserID() == undefined) {
-    //        if (Validate.empty(self.Password())) {
-    //            errMsg += 'Invalid Password !!!<br>';
-    //        }
-    //        if (ko.toJS(self.Password()) != ko.toJS(self.CPassword())) {
-    //            errMsg += 'Does Not Match Password !!!<br>';
-    //        }
-    //    }
-
-    //    if (Validate.email(self.Email())) {
-    //        errMsg += "Invalid Email !!!<br>";
-    //    }
-    //    if (self.PhoneNo() != undefined) {
-    //        if (Validate.phone(self.PhoneNo()) || self.PhoneNo().length > 10 || self.PhoneNo().length < 10) {
-    //            errMsg += 'Invalid Phone Number !!!<br>';
-    //        }
-    //    }
-    //    if (Validate.phone(self.MobileNo()) || self.MobileNo().length > 10 || self.MobileNo().length < 10) {
-    //        errMsg += 'Invalid Mobile Number !!!<br>';
-    //    }
-
-    //    if (errMsg !== '') {
-
-    //        jAlert(errMsg, "Warning.");
-    //        return false;
-    //    }
-    //    else {
-    //        return true;
-    //    }
-    //}
+            jAlert(errMsg, "Warning.");
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
 
     self.getUnits();
 }
@@ -236,6 +139,7 @@ var UnitViewModel = function () {
 //NB: DOCUMENT READY FUNCTION
 $(document).ready(function () {
     ko.applyBindings(new UnitViewModel());
+    
 
 });
 //END DOCUMENT READY FUNCTION

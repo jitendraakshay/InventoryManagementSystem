@@ -44,6 +44,7 @@ namespace InventoryManagementSystem
             services.AddTransient<IAuthorizeMenuHelper, AuthorizeMenuHelper>();
             services.AddTransient<IUserProfile, UserProfileRepo>();
             services.AddTransient<IUnitsRepo, UnitRepo>();
+            services.AddTransient<IProductRepo, ProductRepo>();
 ;
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, config =>

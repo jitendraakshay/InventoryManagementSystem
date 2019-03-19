@@ -9,8 +9,6 @@ namespace DomainInterface
     public interface IUnitsRepo
     {
         List<Units> getAllUnit();
-        ReturnType saveUnit(Units units);
-        ReturnType editUnit(Units units);
-        ReturnType deleteUnit(Units units);
+        ReturnType saveUnit(Units units);     
     }
 }

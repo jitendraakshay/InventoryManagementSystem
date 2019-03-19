@@ -10,7 +10,7 @@ namespace DomainInterface
    public interface IUserRepo
     {
         ReturnType saveUser(User user);
-        List<User> getAllUsers();
+        List<User> getAllUsers(DataTableFilters filter);
         ReturnType deleteUser(User user);
         ReturnType resetPassword(User user);
     }

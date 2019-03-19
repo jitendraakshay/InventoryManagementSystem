@@ -99,7 +99,7 @@ var UserViewModel = function () {
     self.RoleArray = ko.observableArray([]);
     self.Role = ko.observable();
     self.AddedRoleArray = ko.observableArray([]);
-    
+    $("#tblUserList").DataTable().state.clear();
     //End : User Observables end here
     var roleIDs;
     //NB : GETTING USER ROLES
@@ -129,27 +129,106 @@ var UserViewModel = function () {
     //END GETTING USER ROLES
     
     //NB : GETTING ALL USER 
-    self.getAllUsers = function () {
-        $.ajax({
-            url: "/Admin/User/getAllUsers",
-            type: "GET",
-            success: function (response) {
 
-                var obj = JSON.parse(response);
-
-                var mappedTasks = $.map(ko.toJS(obj.ResponseData), function (item) {
-                    return new Users(item);
-                });
-                
-                self.UserArray(ko.toJS(mappedTasks));
+    
+    function LoadUserList() {
+        var table = $("#tblUserList").DataTable({
+            "bStateSave": true,
+            "fixedHeader": true,
+            "destroy": true,
+            "searching": true,
+            "ordering": true,            
+            "processing": true,
+            "scrollX": true,
+            "serverSide": true,            
+            "ajax": {
+                "url": "/Admin/User/getAllUsers",
+                "type": "POST",
+                "datatype": "json",
+                "error": function (jqXHR, textStatus, errorThrown) {
+                    if (jqXHR.status == 302) {
+                        $.fn.dataTable.ext.errMode = 'none';
+                    }
+                }
             },
-            error: function () {
-                jAlert("Some Error Occured", "Error");
-                
-            }
 
+            "columns": [
+                { "data": "serialNo", "name": "serialNo" },  
+                { "data": "userID", "name": "userID", "autowidth": true },
+                { "data": "firstName", "name": "firstName", "autowidth": true },
+                { "data": "lastName", "name": "lastName", "autowidth": true },
+                { "data": "userName", "name": "userName", "autowidth": true },
+                { "data": "phoneNo", "name": "phoneNo", "autowidth": true },
+                { "data": "mobileNo", "name": "mobileNo", "autowidth": true },
+                {
+                    "data": "isActive", "name": "isActive", "autowidth": true, "render": function (data) {
+                        if (data == true) {
+                            return "<span class = 'text-blue'>Active</span>";
+                            
+                        }
+                        else {
+                            return "<span class = 'text-red'>Inactive</span>";
+                        }
+                    }
+                },
+                {
+                    "data": null, "name": "Actions", "render": function (data, type, row, meta)
+                    {
+                        
+                        var action = '';            
+                        action += "<span class='actions' data-id='" + data + "'>";
+                        action += "<a role='button' class='btn btn-primary editUser' href='javascript:void(0)' > <span class='fa  fa-pencil-square-o'></span></a > ";
+                        action += "<a role='button' class='btn btn-primary resetPassword' href='javascript:void(0)'><span class='fa fa-recycle'></span></a>";      
+                        if (data['isActive'] == true) {
+                            action += "<a role='button' class='btn btn-primary deleteUser' href='javascript:void(0)'><span class='fa fa-ban'></span></a>";
+                        }
+                        else {                            
+                            action += "<a role='button' class='btn btn-primary deleteUser' href='javascript:void(0)'><span class='fa fa-check'></span></a>";                         
+                        }
+                                         
+                        action += "</span>";
+                        return action;
+                    }
+
+                }
+                
+            ],
+           
+            "lengthMenu": [SortPageLength(pageLength), SortPageLength(pageLength)],
+            "pageLength": pageLength,
+            "columnDefs": [
+                {
+                    "targets": [0, 5],
+                    "orderable": false
+                }
+            ],
+            "order": [[1, "asc"]]
         });
+        table.columns(1).visible(false);
     }
+
+    
+    //$("#tblUserList").on("click", ".editUser", function () {
+    //    EditUser($(this));
+    //});
+
+    $("#tblUserList").on("click", ".editUser", function () {
+        var $row = $(this).closest('tr');
+        var data = $('#tblUserList').DataTable().row($row).data();
+        self.updateUser(data);
+    });
+
+    $("#tblUserList").on("click", ".deleteUser", function () {
+        var $row = $(this).closest('tr');
+        var data = $('#tblUserList').DataTable().row($row).data();
+        self.deleteUser(data);
+    });
+
+    $("#tblUserList").on("click", ".resetPassword", function () {
+        var $row = $(this).closest('tr');
+        var data = $('#tblUserList').DataTable().row($row).data();
+        self.resetPassword(data);
+    });
     
     //END GETTING ALL USER
     $('#ddlRole').on('hidden.bs.select', function (e) {        // console.log(e.target.value);
@@ -182,7 +261,7 @@ var UserViewModel = function () {
                 jAlert(data.message, "Success");
                 //ShowAlertMessage('success', data.message);
                 self.clearForm();
-                self.getAllUsers();
+                LoadUserList();
             },
             error: function () {
                 jAlert("Some Error Occured", "Error");
@@ -201,12 +280,12 @@ var UserViewModel = function () {
 
         var msg = "";      
         var active = "";
-        if (data.IsActive == true) {
-            msg = 'Disable account?';
+        if (data['isActive'] == true) {
+            msg = 'Inactivate account?';
             active = 'false';
         }
         else {
-            msg = 'Enable account?';
+            msg = 'Activate account?';
             active = 'true';
         }
 
@@ -216,14 +295,14 @@ var UserViewModel = function () {
                     url: "/Admin/User/deleteUser",
                     type: "GET",
                     data: {
-                        UserID: data.UserID,
+                        UserID: data['userID'],
                         IsActive: active
                     },
                     success: function (response) {
                         jAlert(response.message, "Success");
                         //ShowAlertMessage('success', response.message);   
                         //self.UserArray.remove(data);    
-                        self.getAllUsers();
+                        LoadUserList();
                     },
                     error: function () {
                         jAlert("Some Error Occured", "Error");
@@ -245,14 +324,14 @@ var UserViewModel = function () {
                     url: "/Admin/User/resetPassword",
                     type: "GET",
                     data: {
-                        UserID: data.UserID,
-                        UserName: data.UserName
+                        UserID: data['userID'],
+                        UserName: data['userName']
                     },
                     success: function (response) {
                         jAlert(response.message, "Success");
                         //ShowAlertMessage('success', response.message);
                         //self.UserArray.remove(data);    
-                        self.getAllUsers();
+                        LoadUserList();
                     },
                     error: function () {
                         jAlert("Some Error Occured", "Error");
@@ -267,24 +346,25 @@ var UserViewModel = function () {
 
     //NB: UPDATE USER
     self.updateUser = function (data) {
-        self.UserID(ko.toJS(data.UserID));
-        self.FirstName(ko.toJS(data.FirstName));
-        self.MiddleName(ko.toJS(data.MiddleName));
-        self.LastName(ko.toJS(data.LastName));
-        self.UserName(ko.toJS(data.UserName));
-        self.Email(ko.toJS(data.Email));
-        self.PhoneNo(ko.toJS(data.PhoneNo));
-        self.MobileNo(ko.toJS(data.MobileNo));
-        if (data.RoleID != undefined || data.RoleID != undefined) {
-            roleIDs = ko.toJS(data.RoleID).split(",");
+       
+        self.UserID(data['userID']);
+        self.FirstName(data['firstName']);
+        self.MiddleName(data['middleName']);
+        self.LastName(data['lastName']);
+        self.UserName(data['userName']);
+        self.Email(data['email']);
+        self.PhoneNo(data['phoneNo']);
+        self.MobileNo(data['mobileNo']);
+        if (data.RoleID != undefined || data.RoleID != '') {
+            roleIDs = data['roleID'].split(",");
             $("#ddlRole").selectpicker("val", roleIDs);
             $('#ddlRole').selectpicker('refresh');
             self.AddedRoleArray([]);
-            self.AddedRoleArray.push(ko.toJS(data.RoleID));
+            self.AddedRoleArray.push(data['roleID']);
         }
         //self.RoleID(ko.toJS(data.RoleID));
-        self.Address(ko.toJS(data.Address));
-        self.IsActive(ko.toJS(data.IsActive));
+        self.Address(data['address']);
+        self.IsActive(data['isActive']);
         $('.nav-tabs a[href="#CreateUser"]').tab('show');
         $('#spnCreateUser').text("Update User");
         $('#btnSaveUser').text("Update User");
@@ -314,7 +394,6 @@ var UserViewModel = function () {
         $('#btnSaveUser').text("Save User");
     }
     //END CLEAR FORM
-
 
     //NB: Validate USER BEFORE SAVE
 
@@ -372,22 +451,16 @@ var UserViewModel = function () {
     //END TAB CHANGE EVENT
 
     //NB: CALLING JAVASCRIPT FUNCTION ON LOAD
-    self.getAllUsers();
+    //self.getAllUsers();
     self.getRoles();
+    LoadUserList();
     //END CALLING JAVASCRIPT FUNCTION ON LOAD
-
-
-
-    $('#empid').on('click', function () {
-        alert($(this).val());
-        console.log($(this).val());
-    });
 }
 //END CREATING USERS VIEW MODEL IN KNOCKOUT
 
 //NB: DOCUMENT READY FUNCTION
 $(document).ready(function () {    
     ko.applyBindings(new UserViewModel()); 
-
+    
 });
 //END DOCUMENT READY FUNCTION
